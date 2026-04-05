@@ -41,7 +41,7 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 CORS(app, supports_credentials=True, origins=[
     'http://localhost:5500',          # Local development
     'http://127.0.0.1:5500',          # Local development
-    'https://fincowry.netlify.app',   # ← Replace with YOUR Netlify URL
+    'https://heroic-meringue-3fc200.netlify.app',   # ← Replace with YOUR Netlify URL
 ])
 
 db = SQLAlchemy(app)
