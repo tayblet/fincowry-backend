@@ -29,6 +29,8 @@ CORS(app, supports_credentials=True, origins=[
     'http://localhost:3000',
     'https://heroic-meringue-3fc200.netlify.app',
     'https://fincowry.netlify.app',
+    'https://famous-pony-57cf10.netlify.app',
+
 ])
 
 db = SQLAlchemy(app)
