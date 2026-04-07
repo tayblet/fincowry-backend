@@ -23,15 +23,21 @@ app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=30)
 
-CORS(app, supports_credentials=True, origins=[
-    'http://localhost:5500',
-    'http://127.0.0.1:5500',
-    'http://localhost:3000',
-    'https://heroic-meringue-3fc200.netlify.app',
-    'https://fincowry.netlify.app',
-    'https://famous-pony-57cf10.netlify.app',
+CORS(
+    app,
+    supports_credentials=True,
+    origins=[
+        'http://localhost:5500',
+        'http://127.0.0.1:5500',
+        'http://localhost:3000',
+        'https://heroic-meringue-3fc200.netlify.app',
+        'https://fincowry.netlify.app',
+        'https://famous-pony-57cf10.netlify.app',
+    ],
+    allow_headers=['Content-Type', 'Authorization'],
+    methods=['GET', 'POST', 'OPTIONS']
+)
 
-])
 
 db = SQLAlchemy(app)
 
