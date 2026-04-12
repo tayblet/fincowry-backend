@@ -23,7 +23,8 @@ CORS(app, supports_credentials=True, origins=[
     'http://localhost:5500','http://127.0.0.1:5500','http://localhost:3000',
     'https://heroic-meringue-3fc200.netlify.app',
     'https://fincowry.netlify.app',
-    'https://famous-pony-57cf10.netlify.app',
+    'https://famous-pony-57cf10.netlify.app'
+    'https://moonlit-jelly-fca06c.netlify.app',
 ], allow_headers=['Content-Type','Authorization'], methods=['GET','POST','OPTIONS'])
 
 SITE_URL   = os.environ.get('SITE_URL', 'https://famous-pony-57cf10.netlify.app')
