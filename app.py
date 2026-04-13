@@ -23,10 +23,11 @@ CORS(app, supports_credentials=True, origins=[
     'http://localhost:5500','http://127.0.0.1:5500','http://localhost:3000',
     'https://heroic-meringue-3fc200.netlify.app',
     'https://fincowry.netlify.app',
+    'https://famous-pony-57cf10.netlify.app',
     'https://moonlit-jelly-fca06c.netlify.app',
 ], allow_headers=['Content-Type','Authorization'], methods=['GET','POST','OPTIONS'])
 
-SITE_URL   = os.environ.get('SITE_URL',  'https://moonlit-jelly-fca06c.netlify.app')
+SITE_URL = os.environ.get('SITE_URL', 'https://moonlit-jelly-fca06c.netlify.app')
 ADMIN_EMAIL = os.environ.get('SMTP_USER', '')   # messages go to this Gmail
 db = SQLAlchemy(app)
 
@@ -90,7 +91,7 @@ def get_user_from_request():
         return None
 
 # ── Email ──────────────────────────────────────────────────────
-def send_email(to_email, subject, html_body):
+def send_email(to_email, subject, html_body, reply_to=None):
     host = os.environ.get('SMTP_HOST', 'smtp.gmail.com')
     port = int(os.environ.get('SMTP_PORT', 587))
     user = os.environ.get('SMTP_USER', '')
@@ -102,6 +103,8 @@ def send_email(to_email, subject, html_body):
         msg['Subject'] = subject
         msg['From']    = f'FinCowry Trades <{user}>'
         msg['To']      = to_email
+        if reply_to:
+            msg['Reply-To'] = reply_to   # so you can reply directly to the sender
         msg.attach(MIMEText(html_body, 'html'))
         with smtplib.SMTP(host, port) as s:
             s.ehlo(); s.starttls(); s.ehlo()
@@ -339,7 +342,7 @@ def contact():
       <p style="color:#94a3b8;margin:0;"><strong style="color:#f1f5f9;">Message:</strong><br/>{message}</p>
     </div>
     <p style="color:#94a3b8;font-size:.85rem;">Reply directly to: <a href="mailto:{email}" style="color:#00d4aa;">{email}</a></p>"""
-    ok = send_email(admin, f'FinCowry Contact: {subject} — from {name}', wrap(body))
+    ok = send_email(admin, f'FinCowry Contact: {subject} — from {name}', wrap(body), reply_to=email)
     # Also send auto-reply to sender
     auto = f"""
     <h2 style="color:#f1f5f9;">Message Received ✅</h2>
